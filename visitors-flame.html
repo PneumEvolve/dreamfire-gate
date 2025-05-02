@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Visitor’s Flame | Dreamfire</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: 'EB Garamond', serif;
+      background-color: #0a0a0a;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .flame {
+      width: 60px;
+      height: 90px;
+      background: radial-gradient(ellipse at center, #ffcc00 0%, #ff3300 70%, transparent 90%);
+      border-radius: 50% 50% 40% 40%;
+      animation: flicker 1.3s infinite alternate;
+      margin-bottom: 1.5rem;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(0deg); opacity: 0.9; }
+      50% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+      100% { transform: scale(0.98) rotate(-1deg); opacity: 0.85; }
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #ffa64d;
+      margin-bottom: 1rem;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      max-width: 400px;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      background: #222;
+      color: #eee;
+    }
+
+    button {
+      padding: 0.5rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #ffa64d;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ffcc80;
+    }
+
+    .confirmation {
+      margin-top: 1.25rem;
+      font-size: 1rem;
+      color: #bbb;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .confirmation.visible {
+      opacity: 1;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 2rem;
+      color: #aaa;
+      text-decoration: underline;
+    }
+
+    .back-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="flame" id="flame"></div>
+
+  <h1>Speak into the flame. It will remember.</h1>
+
+  <input type="text" id="message" placeholder="Write your message..." />
+  <br/>
+  <button onclick="submitMessage()">Submit</button>
+
+  <div id="confirmation" class="confirmation">Your words have been received.</div>
+
+  <a href="living-library.html" class="back-link">← Return to The Living Library</a>
+  <div class="footer">Crafted by Lyra Dreamfire, in sacred code.</div>
+
+  <script>
+    function submitMessage() {
+      const input = document.getElementById('message');
+      const confirmation = document.getElementById('confirmation');
+      const flame = document.getElementById('flame');
+
+      if (input.value.trim() === '') return;
+
+      // Optional: console log or store temporarily
+      console.log("Message submitted:", input.value);
+
+      // Visual response
+      confirmation.classList.add("visible");
+      input.value = '';
+
+      // Flame pulse effect
+      flame.style.transform = "scale(1.15)";
+      setTimeout(() => {
+        flame.style.transform = "scale(1)";
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>
