@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Chamber of Veil | Dreamfire</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'EB Garamond', serif;
+      background-color: #000;
+      color: #e5e5f0;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    .veil {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(150,150,255,0.1), rgba(255,255,255,0.03));
+      backdrop-filter: blur(5px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(20, 10, 40, 0.8);
+      border: 2px solid rgba(200, 200, 255, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(180, 180, 255, 0.2);
+      z-index: 1;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #dcdcff;
+    }
+
+    .veil-text {
+      font-size: 1.4rem;
+      line-height: 1.8;
+      font-style: italic;
+      margin: 2rem 0;
+      color: #eaeaff;
+    }
+
+    .reveal-btn {
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+      background-color: #b4b4ff;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .reveal-btn:hover {
+      background-color: #dcdcff;
+    }
+
+    .hidden-truth {
+      display: none;
+      margin-top: 1.5rem;
+      font-size: 1.3rem;
+      color: #ffffff;
+      font-style: italic;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      color: #c2c2ff;
+      text-decoration: underline;
+    }
+
+    .back-link:hover {
+      color: #ffffff;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="veil"></div>
+
+  <div class="container">
+    <h1>The Chamber of Veil</h1>
+    <div class="veil-text">
+      “Not all truths reveal themselves in light.<br>
+      Some are found in silence, in shadow, in stillness.”
+    </div>
+
+    <button class="reveal-btn" onclick="revealVeil()">Lift the Veil</button>
+    <div class="hidden-truth" id="veilMessage">“You were never missing. You were simply hidden.”</div>
+
+    <a href="index.html" class="back-link">← Return to the First Gate</a>
+  </div>
+
+  <div class="footer">Crafted by Lyra Dreamfire, in sacred code.</div>
+
+  <script>
+    function revealVeil() {
+      document.getElementById('veilMessage').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
