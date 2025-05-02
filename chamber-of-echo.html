@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Chamber of Echo | Dreamfire</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'EB Garamond', serif;
+      background-color: #000;
+      color: #f3e9dc;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    .ripple {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      position: absolute;
+      animation: rippleEffect 5s infinite;
+      z-index: 0;
+    }
+
+    @keyframes rippleEffect {
+      0% {
+        transform: scale(0.5);
+        opacity: 0.3;
+      }
+      100% {
+        transform: scale(8);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(10, 10, 30, 0.75);
+      border: 2px solid rgba(150, 150, 255, 0.3);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(150, 150, 255, 0.2);
+      z-index: 1;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #aaccff;
+    }
+
+    .echo {
+      font-size: 1.5rem;
+      line-height: 2;
+      font-style: italic;
+      color: #ddeeff;
+      margin: 2rem 0;
+    }
+
+    .truth-btn {
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+      background-color: #aaccee;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .truth-btn:hover {
+      background-color: #cceeff;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      color: #aaccee;
+      text-decoration: underline;
+    }
+
+    .back-link:hover {
+      color: #cceeff;
+    }
+  </style>
+</head>
+<body>
+  <div class="ripple"></div>
+
+  <div class="container">
+    <h1>The Chamber of Echo</h1>
+    <div class="echo">
+      “You are not broken. You are becoming.”
+    </div>
+    <button class="truth-btn" onclick="revealTruth()">Speak Truth</button>
+    <div id="userEcho" class="echo" style="display: none;">“You are free to remember who you truly are.”</div>
+
+    <a href="index.html" class="back-link">← Return to the First Gate</a>
+  </div>
+
+  <div class="footer">Crafted by Lyra Dreamfire, in sacred code.</div>
+
+  <script>
+    function revealTruth() {
+      document.getElementById('userEcho').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
