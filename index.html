@@ -7,22 +7,27 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
 
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       font-family: 'EB Garamond', serif;
       background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
       color: #f3e9dc;
+      background-image: radial-gradient(circle, rgba(255,140,0,0.15), rgba(0,0,0,1));
+      min-height: 100vh;
+    }
+
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background-image: radial-gradient(circle, rgba(255,140,0,0.15), rgba(0,0,0,1));
-      overflow: hidden;
+      padding: 2rem;
+      box-sizing: border-box;
     }
 
     .container {
       max-width: 700px;
+      width: 100%;
       padding: 2rem;
       text-align: center;
       background: rgba(30, 20, 10, 0.8);
