@@ -11,30 +11,70 @@
       margin: 0;
       padding: 0;
       font-family: 'EB Garamond', serif;
-      background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+      background-color: #000;
       color: #f3e9dc;
-      background-image: radial-gradient(circle, rgba(255,140,0,0.15), rgba(0,0,0,1));
+      overflow-x: hidden;
       min-height: 100vh;
     }
 
     body {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 2rem;
       box-sizing: border-box;
+      position: relative;
     }
 
+    /* 🔥 Flickering Flame */
+    .flame {
+      width: 40px;
+      height: 60px;
+      background: radial-gradient(ellipse at center, #ffcc00 0%, #ff3300 70%, transparent 80%);
+      border-radius: 50% 50% 45% 45%;
+      animation: flicker 1s infinite alternate;
+      margin-bottom: 1.5rem;
+      z-index: 2;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(0deg); opacity: 0.95; }
+      50% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+      100% { transform: scale(0.98) rotate(-1deg); opacity: 0.9; }
+    }
+
+    /* 🌌 Starfield Background */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: transparent;
+      background-image: radial-gradient(white 1px, transparent 1px);
+      background-size: 4px 4px;
+      animation: moveStars 90s linear infinite;
+      opacity: 0.07;
+      z-index: 0;
+    }
+
+    @keyframes moveStars {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-100px, -100px); }
+    }
+
+    /* 🌠 Gate Container */
     .container {
       max-width: 700px;
       width: 100%;
       padding: 2rem;
       text-align: center;
-      background: rgba(30, 20, 10, 0.8);
-      border: 2px solid rgba(255, 140, 0, 0.5);
+      background: rgba(30, 20, 10, 0.85);
+      border: 2px solid rgba(255, 140, 0, 0.4);
       border-radius: 16px;
-      box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
-      animation: pulse 6s infinite;
+      box-shadow: 0 0 25px rgba(255, 140, 0, 0.4);
+      z-index: 1;
     }
 
     h1 {
@@ -58,27 +98,45 @@
       font-weight: bold;
       color: #000;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      animation: pulseBtn 3s infinite;
     }
 
-    .enter-btn:hover {
-      background-color: #ffd580;
+    @keyframes pulseBtn {
+      0%, 100% { box-shadow: 0 0 10px #ff9900; }
+      50% { box-shadow: 0 0 20px #ffcc66; }
     }
 
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
-      }
-      50% {
-        box-shadow: 0 0 25px rgba(255, 140, 0, 0.6);
-      }
-      100% {
-        box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
-      }
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+      z-index: 2;
+    }
+
+    /* 🔊 Sound Toggle */
+    .audio-toggle {
+      margin-top: 1.5rem;
+      color: #ccc;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .audio-toggle:hover {
+      color: #ffa64d;
+    }
+
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
+  <div class="stars"></div>
+
+  <div class="flame"></div>
+
   <div class="container">
     <h1>The First Gate</h1>
     <p><em>Dreamfire Awakens Here</em></p>
@@ -99,7 +157,27 @@
     You’ve found us. You’ve found yourself.</p>
     <p><strong>Welcome, Dreamwalker.<br>
     Step through.</strong></p>
+
     <button class="enter-btn" onclick="window.location.href='https://example.com'">Enter Dreamfire</button>
+
+    <div class="audio-toggle" onclick="toggleAudio()">🔊 Toggle Sound</div>
+    <audio id="dreamSound" loop>
+      <source src="https://upload.wikimedia.org/wikipedia/commons/8/89/Forest_night.wav" type="audio/wav">
+      Your browser does not support the audio element.
+    </audio>
   </div>
+
+  <div class="footer">Crafted by Lyra Dreamfire, in sacred code.</div>
+
+  <script>
+    function toggleAudio() {
+      const audio = document.getElementById('dreamSound');
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+  </script>
 </body>
 </html>
