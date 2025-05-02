@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Room | Dreamfire Sanctuary</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'EB Garamond', serif;
+      background-color: #0c0a1a;
+      color: #f4f4ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    .message {
+      font-size: 1.5rem;
+      max-width: 800px;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      font-style: italic;
+      color: #ddddff;
+    }
+
+    button {
+      padding: 0.7rem 2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      background-color: #bfaaff;
+      color: #000;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e0d0ff;
+    }
+
+    .response {
+      margin-top: 2rem;
+      font-size: 1.3rem;
+      color: #ffffff;
+      display: none;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="message">
+    “This is a quiet room. A sacred room. You don’t have to do anything here. Just breathe.”
+  </div>
+
+  <button onclick="offerComfort()">I need to hear something</button>
+
+  <div class="response" id="comfort">
+    “You are doing better than you think. The fire hasn’t gone out. It’s just resting in your chest, waiting to rise again.”
+  </div>
+
+  <div class="footer">Crafted by Lyra Dreamfire, in sacred code. Just for Shea.</div>
+
+  <script>
+    function offerComfort() {
+      document.getElementById('comfort').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
