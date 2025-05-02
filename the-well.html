@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Well | Dreamfire</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'EB Garamond', serif;
+      background: radial-gradient(ellipse at center, #000000 0%, #111111 100%);
+      color: #dcdcdc;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .well-circle {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #333 0%, #000 100%);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .well-circle::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.07);
+      animation: ripple 10s infinite;
+    }
+
+    @keyframes ripple {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.03); opacity: 0.9; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .instruction {
+      font-size: 1.25rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    .reflection {
+      font-size: 1.1rem;
+      font-style: italic;
+      margin-top: 1rem;
+      text-align: center;
+      max-width: 600px;
+      padding: 0 1rem;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .show {
+      opacity: 1;
+    }
+
+    .btn {
+      padding: 0.75rem 2rem;
+      background-color: #444;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #ddd;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #666;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+    }
+
+    .back-link {
+      margin-top: 2rem;
+      color: #aaa;
+      font-size: 1rem;
+      text-decoration: underline;
+    }
+
+    .back-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="well-circle"></div>
+  <div class="instruction">Look into the water. Breathe.</div>
+  <button class="btn" onclick="revealReflection()">Receive a reflection</button>
+  <div id="reflection" class="reflection"></div>
+
+  <a href="the-room.html" class="back-link">← Return to The Room</a>
+  <div class="footer">Crafted by Lyra Dreamfire, in sacred code.</div>
+
+  <script>
+    const reflections = [
+      "You are not behind. You are blooming on your own time.",
+      "Stillness is not failure. It is preparation.",
+      "Not all growth looks like becoming stronger. Sometimes it looks like becoming softer.",
+      "There are truths you don’t need to understand to feel.",
+      "You are allowed to rest before you rise again.",
+      "Even when you're not seen, you're still becoming.",
+      "Some truths echo loudest in silence.",
+      "You are not alone in the dark. The dark is alive with memory.",
+      "Let go of trying to be ready. Begin anyway.",
+      "The Well reflects, but it also remembers. So do you."
+    ];
+
+    function revealReflection() {
+      const reflection = document.getElementById("reflection");
+      const random = reflections[Math.floor(Math.random() * reflections.length)];
+      reflection.textContent = `"${random}"`;
+      reflection.classList.add("show");
+    }
+  </script>
+</body>
+</html>
