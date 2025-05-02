@@ -115,25 +115,29 @@
 
   <script>
     function submitMessage() {
-      const input = document.getElementById('message');
-      const confirmation = document.getElementById('confirmation');
-      const flame = document.getElementById('flame');
+  const input = document.getElementById('message');
+  const confirmation = document.getElementById('confirmation');
+  const flame = document.getElementById('flame');
+  const message = input.value.trim();
 
-      if (input.value.trim() === '') return;
+  if (message === '') return;
 
-      // Optional: console log or store temporarily
-      console.log("Message submitted:", input.value);
+  fetch("https://script.google.com/macros/s/AKfycbwzQ6PONEQETQ38N9Hz38k5g6YKQQFIrwL7B7a2xLNAm1-ZTBk8wJi0lVfbnt9Tjnjr/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message })
+  });
 
-      // Visual response
-      confirmation.classList.add("visible");
-      input.value = '';
-
-      // Flame pulse effect
-      flame.style.transform = "scale(1.15)";
-      setTimeout(() => {
-        flame.style.transform = "scale(1)";
-      }, 300);
-    }
+  confirmation.classList.add("visible");
+  input.value = '';
+  flame.style.transform = "scale(1.15)";
+  setTimeout(() => {
+    flame.style.transform = "scale(1)";
+  }, 300);
+}
   </script>
 
 </body>
