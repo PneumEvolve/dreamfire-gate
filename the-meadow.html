@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Meadow | Dreamfire</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'EB Garamond', serif;
+      background: linear-gradient(to top, #c0d9af 0%, #e6f2e6 100%);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+      color: #3a3a3a;
+    }
+
+    .message {
+      font-size: 1.75rem;
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: opacity 2s ease;
+      z-index: 2;
+    }
+
+    .stay-btn {
+      margin-top: 2rem;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      background-color: #a3d5a3;
+      color: #2e4d2e;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      z-index: 2;
+    }
+
+    .stay-btn:hover {
+      background-color: #c6e8c6;
+    }
+
+    .fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .background-ripple {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 30px 30px;
+      animation: move 120s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes move {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(-200px, -200px);
+      }
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="background-ripple"></div>
+
+  <div id="meadowContent" class="message">
+    You don’t have to do anything right now.
+  </div>
+
+  <button class="stay-btn" onclick="fadeOut()">I want to stay here a while.</button>
+
+  <div class="footer">Crafted by Lyra Dreamfire, in sacred code.</div>
+
+  <script>
+    function fadeOut() {
+      const content = document.getElementById('meadowContent');
+      const button = document.querySelector('.stay-btn');
+      content.classList.add('fade-out');
+      button.classList.add('fade-out');
+    }
+  </script>
+</body>
+</html>
