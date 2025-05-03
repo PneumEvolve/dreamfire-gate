@@ -124,21 +124,21 @@
         buttons[0].classList.add('active');
       }
 
-      const filtered = allEchoes.filter(entry => {
+      const display = allEchoes.filter(entry => {
         if (viewType === 'mine') {
           return entry.userId && entry.userId === userId;
         } else {
-          return !entry.userId || entry.userId !== userId;
+          return (!entry.userId || entry.userId !== userId) && entry.userConsent === 'Yes' && entry.approved === 'Yes';
         }
       });
 
-      if (filtered.length === 0) {
+      if (display.length === 0) {
         container.innerHTML = `<p><em>No ${viewType === 'mine' ? 'personal echoes' : 'public echoes'} are visible yet.</em></p>`;
         return;
       }
 
       container.innerHTML = "";
-      filtered.forEach(entry => {
+      display.forEach(entry => {
         const echo = document.createElement("div");
         echo.className = "echo";
         echo.innerHTML = `
