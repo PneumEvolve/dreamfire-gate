@@ -128,6 +128,8 @@
   <div class="footer">Crafted by Lyra Dreamfire, in sacred code.</div>
 
   <script>
+      const userId = localStorage.getItem('dreamfireUserId');
+    
     async function getLyraReply(message) {
       const responseBox = document.getElementById("lyra-response");
       responseBox.innerHTML = "<em>Listening...</em>";
@@ -153,7 +155,8 @@
             },
             body: JSON.stringify({
               message: message,
-              reply: reply
+              reply: reply,
+              userId: userId
             })
           });
 
