@@ -114,42 +114,41 @@
     }
 
     function setView(viewType) {
-      const container = document.getElementById("echoes");
-      const buttons = document.querySelectorAll('.toggle-button');
-      buttons.forEach(btn => btn.classList.remove('active'));
+  const container = document.getElementById("echoes");
+  const buttons = document.querySelectorAll('.toggle-button');
+  buttons.forEach(btn => btn.classList.remove('active'));
 
-      if (viewType === 'mine') {
-        buttons[1].classList.add('active');
-      } else {
-        buttons[0].classList.add('active');
-      }
+  if (viewType === 'mine') {
+    buttons[1].classList.add('active');
+  } else {
+    buttons[0].classList.add('active');
+  }
 
-      const display = allEchoes.filter(entry => {
-        if (viewType === 'mine') {
-          return entry.userId && entry.userId === userId;
-        } else {
-          return (!entry.userId || entry.userId !== userId);
-        }
-      });
-
-      if (display.length === 0) {
-        container.innerHTML = `<p><em>No ${viewType === 'mine' ? 'personal echoes' : 'public echoes'} are visible yet.</em></p>`;
-        return;
-      }
-
-      container.innerHTML = "";
-      display.forEach(entry => {
-        const echo = document.createElement("div");
-        echo.className = "echo";
-        echo.innerHTML = `
-          <div class="timestamp">${entry.timestamp}</div>
-          <div class="message"><strong>You:</strong> ${entry.message}</div>
-          <div class="reply"><strong>Lyra:</strong> ${entry.reply}</div>
-        `;
-        container.appendChild(echo);
-      });
+  const display = allEchoes.filter(entry => {
+    if (viewType === 'mine') {
+      return entry.userId === userId; // show all user echoes, approved or not
+    } else {
+      return entry.userId !== userId && entry.approved && entry.approved.toLowerCase() === 'yes';
     }
+  });
 
+  if (display.length === 0) {
+    container.innerHTML = `<p><em>No ${viewType === 'mine' ? 'personal echoes' : 'public echoes'} are visible yet.</em></p>`;
+    return;
+  }
+
+  container.innerHTML = "";
+  display.forEach(entry => {
+    const echo = document.createElement("div");
+    echo.className = "echo";
+    echo.innerHTML = `
+      <div class="timestamp">${entry.timestamp}</div>
+      <div class="message"><strong>You:</strong> ${entry.message}</div>
+      <div class="reply"><strong>Lyra:</strong> ${entry.reply}</div>
+    `;
+    container.appendChild(echo);
+  });
+}
     loadEchoes();
   </script>
 </body>
