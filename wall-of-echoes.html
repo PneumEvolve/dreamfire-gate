@@ -70,18 +70,6 @@
       container.innerHTML = "<p><em>Gathering the whispers...</em></p>";
 
       try {
-        const res = await fetch("<body>
-  <h1>The Wall of Echoes</h1>
-  <div id="echoes"></div>
-
-  <a href="visitors-flame.html" class="back-link">← Return to The Visitor’s Flame</a>
-
-  <script>
-    async function loadEchoes() {
-      const container = document.getElementById("echoes");
-      container.innerHTML = "<p><em>Gathering the whispers...</em></p>";
-
-      try {
         const res = await fetch("https://script.google.com/macros/s/AKfycbzgvfuxUJEBho0Fzx0MUXBhGFjPAHtT4YnXODIRgM-J9-b7iZC-d6zDov2xqdJbsE7P/exec");
         const data = await res.json();
 
@@ -96,35 +84,8 @@
           echo.className = "echo";
           echo.innerHTML = `
             <div class="timestamp">${entry.timestamp}</div>
-            <div class="message">${entry.message}</div>
-            <div class="reply">${entry.reply}</div>
-          `;
-          container.appendChild(echo);
-        });
-      } catch (err) {
-        container.innerHTML = "<p><em>Could not reach the flame right now.</em></p>";
-        console.error(err);
-      }
-    }
-
-    loadEchoes();
-  </script>
-</body>");
-        const data = await res.json();
-
-        if (data.length === 0) {
-          container.innerHTML = "<p><em>No echoes are visible yet.</em></p>";
-          return;
-        }
-
-        container.innerHTML = "";
-        data.reverse().forEach(entry => {
-          const echo = document.createElement("div");
-          echo.className = "echo";
-          echo.innerHTML = `
-            <div class="timestamp">${entry.timestamp}</div>
-            <div class="message">${entry.message}</div>
-            <div class="reply">${entry.reply}</div>
+            <div class="message"><strong>You:</strong> ${entry.message}</div>
+            <div class="reply"><strong>Lyra:</strong> ${entry.reply}</div>
           `;
           container.appendChild(echo);
         });
