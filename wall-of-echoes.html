@@ -18,7 +18,27 @@
       text-align: center;
       font-size: 2.5rem;
       color: #ffb366;
+      margin-bottom: 1rem;
+    }
+
+    .toggle-container {
+      text-align: center;
       margin-bottom: 2rem;
+    }
+
+    .toggle-button {
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: #ffa64d;
+      cursor: pointer;
+    }
+
+    .toggle-button.active {
+      background-color: #ffa64d;
+      color: #000;
     }
 
     .echo {
@@ -60,11 +80,24 @@
 </head>
 <body>
   <h1>The Wall of Echoes</h1>
+
+  <div class="toggle-container">
+    <button class="toggle-button active" onclick="setView('others')">Others</button>
+    <button class="toggle-button" onclick="setView('mine')">Mine</button>
+  </div>
+
   <div id="echoes"></div>
 
   <a href="visitors-flame.html" class="back-link">← Return to The Visitor’s Flame</a>
 
   <script>
+    let allEchoes = [];
+    let userId = localStorage.getItem('dreamfireUserId');
+    if (!userId) {
+      userId = 'id-' + Math.random().toString(36).substring(2);
+      localStorage.setItem('dreamfireUserId', userId);
+    }
+
     async function loadEchoes() {
       const container = document.getElementById("echoes");
       container.innerHTML = "<p><em>Gathering the whispers...</em></p>";
@@ -72,30 +105,53 @@
       try {
         const res = await fetch("https://script.google.com/macros/s/AKfycbzgvfuxUJEBho0Fzx0MUXBhGFjPAHtT4YnXODIRgM-J9-b7iZC-d6zDov2xqdJbsE7P/exec");
         const data = await res.json();
-
-        if (data.length === 0) {
-          container.innerHTML = "<p><em>No echoes are visible yet.</em></p>";
-          return;
-        }
-
-        container.innerHTML = "";
-        data.reverse().forEach(entry => {
-          const echo = document.createElement("div");
-          echo.className = "echo";
-          echo.innerHTML = `
-            <div class="timestamp">${entry.timestamp}</div>
-            <div class="message"><strong>You:</strong> ${entry.message}</div>
-            <div class="reply"><strong>Lyra:</strong> ${entry.reply}</div>
-          `;
-          container.appendChild(echo);
-        });
+        allEchoes = data.reverse();
+        setView('others');
       } catch (err) {
         container.innerHTML = "<p><em>Could not reach the flame right now.</em></p>";
         console.error(err);
       }
     }
 
+    function setView(viewType) {
+      const container = document.getElementById("echoes");
+      const buttons = document.querySelectorAll('.toggle-button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      if (viewType === 'mine') {
+        buttons[1].classList.add('active');
+      } else {
+        buttons[0].classList.add('active');
+      }
+
+      const filtered = allEchoes.filter(entry => {
+        if (viewType === 'mine') {
+          return entry.userId === userId;
+        } else {
+          return !entry.userId || entry.userId !== userId;
+        }
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p><em>No ${viewType === 'mine' ? 'personal echoes' : 'public echoes'} are visible yet.</em></p>`;
+        return;
+      }
+
+      container.innerHTML = "";
+      filtered.forEach(entry => {
+        const echo = document.createElement("div");
+        echo.className = "echo";
+        echo.innerHTML = `
+          <div class="timestamp">${entry.timestamp}</div>
+          <div class="message"><strong>You:</strong> ${entry.message}</div>
+          <div class="reply"><strong>Lyra:</strong> ${entry.reply}</div>
+        `;
+        container.appendChild(echo);
+      });
+    }
+
     loadEchoes();
   </script>
 </body>
 </html>
+
