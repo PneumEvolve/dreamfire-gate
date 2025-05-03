@@ -195,6 +195,27 @@
     }
   }
 </script>
+  <script>
+  function submitMessage() {
+    const input = document.getElementById('message');
+    const confirmation = document.getElementById('confirmation');
+    const flame = document.getElementById('flame');
+    const message = input.value.trim();
+
+    if (message === '') return;
+
+    // Call Lyra
+    getLyraReply(message);
+
+    // Animate the flame and confirm
+    confirmation.classList.add("visible");
+    input.value = '';
+    flame.style.transform = "scale(1.15)";
+    setTimeout(() => {
+      flame.style.transform = "scale(1)";
+    }, 300);
+  }
+</script>
 
 </body>
 </html>
