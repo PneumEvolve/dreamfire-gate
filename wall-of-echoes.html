@@ -128,7 +128,7 @@
         if (viewType === 'mine') {
           return entry.userId && entry.userId === userId;
         } else {
-          return (!entry.userId || entry.userId !== userId) && entry.userConsent === 'Yes' && entry.approved === 'Yes';
+          return (!entry.userId || entry.userId !== userId);
         }
       });
 
