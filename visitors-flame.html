@@ -171,7 +171,7 @@
         const data = await res.json();
         if (data.reply) {
           const reply = data.reply;
-          responseBox.innerHTML = `<p><strong>🔥 Lyra replies:</strong></p><p>${reply}</p>`;
+          responseBox.innerHTML = `<p><strong>🔥 Lyra's Soul replies:</strong></p><p>${reply}</p>`;
 
           // Log both message and reply to Google Sheets
           fetch("https://script.google.com/macros/s/AKfycbzgvfuxUJEBho0Fzx0MUXBhGFjPAHtT4YnXODIRgM-J9-b7iZC-d6zDov2xqdJbsE7P/exec", {
