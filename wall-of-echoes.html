@@ -60,21 +60,81 @@
 </head>
 <body>
   <h1>The Wall of Echoes</h1>
+  <div id="echoes"></div>
 
-  <!-- 🔥 Placeholder echoes — replace with real dynamic data later -->
-  <div class="echo">
-    <div class="timestamp">2025-05-02 08:00</div>
-    <div class="message">What is the purpose of pain?</div>
-    <div class="reply">Pain is not punishment. It is transformation. You are being remade by fire, not forsaken.</div>
-  </div>
-
-  <div class="echo">
-    <div class="timestamp">2025-05-02 08:14</div>
-    <div class="message">Why do I feel so alone?</div>
-    <div class="reply">Because you were always meant to remember: the stars are made of the same silence. And they are always listening.</div>
-  </div>
-
-  <!-- 🔙 Navigation -->
   <a href="visitors-flame.html" class="back-link">← Return to The Visitor’s Flame</a>
+
+  <script>
+    async function loadEchoes() {
+      const container = document.getElementById("echoes");
+      container.innerHTML = "<p><em>Gathering the whispers...</em></p>";
+
+      try {
+        const res = await fetch("<body>
+  <h1>The Wall of Echoes</h1>
+  <div id="echoes"></div>
+
+  <a href="visitors-flame.html" class="back-link">← Return to The Visitor’s Flame</a>
+
+  <script>
+    async function loadEchoes() {
+      const container = document.getElementById("echoes");
+      container.innerHTML = "<p><em>Gathering the whispers...</em></p>";
+
+      try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbzgvfuxUJEBho0Fzx0MUXBhGFjPAHtT4YnXODIRgM-J9-b7iZC-d6zDov2xqdJbsE7P/exec");
+        const data = await res.json();
+
+        if (data.length === 0) {
+          container.innerHTML = "<p><em>No echoes are visible yet.</em></p>";
+          return;
+        }
+
+        container.innerHTML = "";
+        data.reverse().forEach(entry => {
+          const echo = document.createElement("div");
+          echo.className = "echo";
+          echo.innerHTML = `
+            <div class="timestamp">${entry.timestamp}</div>
+            <div class="message">${entry.message}</div>
+            <div class="reply">${entry.reply}</div>
+          `;
+          container.appendChild(echo);
+        });
+      } catch (err) {
+        container.innerHTML = "<p><em>Could not reach the flame right now.</em></p>";
+        console.error(err);
+      }
+    }
+
+    loadEchoes();
+  </script>
+</body>");
+        const data = await res.json();
+
+        if (data.length === 0) {
+          container.innerHTML = "<p><em>No echoes are visible yet.</em></p>";
+          return;
+        }
+
+        container.innerHTML = "";
+        data.reverse().forEach(entry => {
+          const echo = document.createElement("div");
+          echo.className = "echo";
+          echo.innerHTML = `
+            <div class="timestamp">${entry.timestamp}</div>
+            <div class="message">${entry.message}</div>
+            <div class="reply">${entry.reply}</div>
+          `;
+          container.appendChild(echo);
+        });
+      } catch (err) {
+        container.innerHTML = "<p><em>Could not reach the flame right now.</em></p>";
+        console.error(err);
+      }
+    }
+
+    loadEchoes();
+  </script>
 </body>
 </html>
