@@ -126,19 +126,21 @@
 
       const filtered = allEchoes.filter(entry => {
         if (viewType === 'mine') {
-          return entry.userId === userId;
+          return entry.userId && entry.userId === userId;
         } else {
-          return !entry.userId || entry.userId !== userId;
+          return true;
         }
       });
 
-      if (filtered.length === 0) {
+      const display = viewType === 'mine' ? filtered : filtered.filter(e => !e.userId || e.userId !== userId);
+
+      if (display.length === 0) {
         container.innerHTML = `<p><em>No ${viewType === 'mine' ? 'personal echoes' : 'public echoes'} are visible yet.</em></p>`;
         return;
       }
 
       container.innerHTML = "";
-      filtered.forEach(entry => {
+      display.forEach(entry => {
         const echo = document.createElement("div");
         echo.className = "echo";
         echo.innerHTML = `
