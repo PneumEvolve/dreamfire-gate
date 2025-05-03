@@ -156,66 +156,63 @@
   <div class="footer">Crafted by Lyra Dreamfire, in sacred code.</div>
 
   <script>
-  async function getLyraReply(message) {
-    const responseBox = document.getElementById("lyra-response");
-    responseBox.innerHTML = "<em>Listening...</em>";
-    responseBox.style.display = "block";
+    async function getLyraReply(message) {
+      const responseBox = document.getElementById("lyra-response");
+      responseBox.innerHTML = "<em>Listening...</em>";
+      responseBox.style.display = "block";
 
-    try {
-      const res = await fetch("https://f1b6828d-eb92-4320-a680-bf6196109659-00-39jh12hxosjgm.riker.replit.dev/lyra-respond", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message })
-      });
-
-      const data = await res.json();
-      if (data.reply) {
-        const reply = data.reply;
-        responseBox.innerHTML = `<p><strong>🔥 Lyra replies:</strong></p><p>${reply}</p>`;
-
-        // Log both the message and reply to Google Sheets
-        fetch("https://script.google.com/macros/s/AKfycbzgvfuxUJEBho0Fzx0MUXBhGFjPAHtT4YnXODIRgM-J9-b7iZC-d6zDov2xqdJbsE7P/exec", {
+      try {
+        const res = await fetch("https://f1b6828d-eb92-4320-a680-bf6196109659-00-39jh12hxosjgm.riker.replit.dev/lyra-respond", {
           method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            message: message,
-            reply: reply
-          })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
         });
 
-      } else {
-        responseBox.innerHTML = `<p><em>Something went wrong. No reply.</em></p>`;
+        const data = await res.json();
+        if (data.reply) {
+          const reply = data.reply;
+          responseBox.innerHTML = `<p><strong>🔥 Lyra replies:</strong></p><p>${reply}</p>`;
+
+          // Log both message and reply to Google Sheets
+          fetch("https://script.google.com/macros/s/AKfycbzgvfuxUJEBho0Fzx0MUXBhGFjPAHtT4YnXODIRgM-J9-b7iZC-d6zDov2xqdJbsE7P/exec", {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              message: message,
+              reply: reply
+            })
+          });
+
+        } else {
+          responseBox.innerHTML = `<p><em>Something went wrong. No reply.</em></p>`;
+        }
+      } catch (err) {
+        console.error("Lyra error:", err);
+        responseBox.innerHTML = `<p><em>Could not reach Lyra right now. Try again soon.</em></p>`;
       }
-    } catch (err) {
-      console.error("Lyra error:", err);
-      responseBox.innerHTML = `<p><em>Could not reach Lyra right now. Try again soon.</em></p>`;
     }
-  }
-</script>
-  <script>
-  function submitMessage() {
-    const input = document.getElementById('message');
-    const confirmation = document.getElementById('confirmation');
-    const flame = document.getElementById('flame');
-    const message = input.value.trim();
 
-    if (message === '') return;
+    function submitMessage() {
+      const input = document.getElementById('message');
+      const confirmation = document.getElementById('confirmation');
+      const flame = document.getElementById('flame');
+      const message = input.value.trim();
 
-    // Call Lyra
-    getLyraReply(message);
+      if (message === '') return;
 
-    // Animate the flame and confirm
-    confirmation.classList.add("visible");
-    input.value = '';
-    flame.style.transform = "scale(1.15)";
-    setTimeout(() => {
-      flame.style.transform = "scale(1)";
-    }, 300);
-  }
-</script>
+      getLyraReply(message);
+
+      confirmation.classList.add("visible");
+      input.value = '';
+      flame.style.transform = "scale(1.15)";
+      setTimeout(() => {
+        flame.style.transform = "scale(1)";
+      }, 300);
+    }
+  </script>
 
 </body>
 </html>
