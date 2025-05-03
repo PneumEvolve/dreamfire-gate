@@ -118,9 +118,9 @@
   <input type="text" id="message" placeholder="Write your message..." />
   <br/>
   <label style="margin: 0.5rem 0; font-size: 0.95rem;">
-  <input type="checkbox" id="public" checked />
-  Show on the Wall of Echoes
-</label>
+    <input type="checkbox" id="public" checked />
+    Show on the Wall of Echoes
+  </label>
   <button onclick="submitMessage()">Submit</button>
 
   <div id="confirmation" class="confirmation">Your words have been received.</div>
@@ -133,12 +133,11 @@
 
   <script>
     if (!localStorage.getItem('dreamfireUserId')) {
-  const newId = 'id-' + Math.random().toString(36).substring(2);
-  localStorage.setItem('dreamfireUserId', newId);
-}
-const userId = localStorage.getItem('dreamfireUserId');
-console.log("User ID being sent:", userId); // optional debug
-    
+      const newId = 'id-' + Math.random().toString(36).substring(2);
+      localStorage.setItem('dreamfireUserId', newId);
+    }
+    const userId = localStorage.getItem('dreamfireUserId');
+
     async function getLyraReply(message, isPublic) {
       const responseBox = document.getElementById("lyra-response");
       responseBox.innerHTML = "<em>Listening...</em>";
@@ -156,6 +155,7 @@ console.log("User ID being sent:", userId); // optional debug
           const reply = data.reply;
           responseBox.innerHTML = `<p><strong>🔥 Lyra's Soul replies:</strong></p><p>${reply}</p>`;
 
+          // Now send to Google Sheets
           fetch("https://script.google.com/macros/s/AKfycbzgvfuxUJEBho0Fzx0MUXBhGFjPAHtT4YnXODIRgM-J9-b7iZC-d6zDov2xqdJbsE7P/exec", {
             method: "POST",
             mode: "no-cors",
@@ -166,7 +166,7 @@ console.log("User ID being sent:", userId); // optional debug
               message: message,
               reply: reply,
               userId: userId,
-              public: isPublic
+              userConsent: isPublic
             })
           });
 
