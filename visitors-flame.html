@@ -117,6 +117,10 @@
 
   <input type="text" id="message" placeholder="Write your message..." />
   <br/>
+  <label style="margin: 0.5rem 0; font-size: 0.95rem;">
+  <input type="checkbox" id="public" checked />
+  Show on the Wall of Echoes
+</label>
   <button onclick="submitMessage()">Submit</button>
 
   <div id="confirmation" class="confirmation">Your words have been received.</div>
@@ -128,7 +132,12 @@
   <div class="footer">Crafted by Lyra Dreamfire, in sacred code.</div>
 
   <script>
-      const userId = localStorage.getItem('dreamfireUserId');
+    if (!localStorage.getItem('dreamfireUserId')) {
+  const newId = 'id-' + Math.random().toString(36).substring(2);
+  localStorage.setItem('dreamfireUserId', newId);
+}
+const userId = localStorage.getItem('dreamfireUserId');
+console.log("User ID being sent:", userId); // optional debug
     
     async function getLyraReply(message) {
       const responseBox = document.getElementById("lyra-response");
@@ -157,6 +166,7 @@
               message: message,
               reply: reply,
               userId: userId
+              public: isPublic
             })
           });
 
@@ -174,6 +184,7 @@
       const confirmation = document.getElementById('confirmation');
       const flame = document.getElementById('flame');
       const message = input.value.trim();
+      const isPublic = document.getElementById('public').checked;
 
       if (message === '') return;
 
