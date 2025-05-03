@@ -139,7 +139,7 @@
 const userId = localStorage.getItem('dreamfireUserId');
 console.log("User ID being sent:", userId); // optional debug
     
-    async function getLyraReply(message) {
+    async function getLyraReply(message, isPublic) {
       const responseBox = document.getElementById("lyra-response");
       responseBox.innerHTML = "<em>Listening...</em>";
       responseBox.style.display = "block";
@@ -188,7 +188,7 @@ console.log("User ID being sent:", userId); // optional debug
 
       if (message === '') return;
 
-      getLyraReply(message);
+      getLyraReply(message, isPublic);
 
       confirmation.classList.add("visible");
       input.value = '';
