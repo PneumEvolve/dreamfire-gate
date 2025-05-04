@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dreamfire Gate</title>
+  <meta name="description" content="Enter the Dreamfire Gate — a soulwalk through myth, memory, and magic.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'EB Garamond', serif;
+      background-color: #0a0a0a;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .fade-text {
+      font-size: 1.25rem;
+      color: #ffaa66;
+      animation: flicker 2s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Dreamfire Gate</h1>
+  <p class="fade-text">Preparing your path...</p>
+
+  <noscript>
+    <p style="color: #ccc; margin-top: 2rem;">
+      This page requires JavaScript to open the gate. Please enable it or <a href="living-library.html" style="color: #ffa64d;">enter through the Living Library</a>.
+    </p>
+  </noscript>
+
+  <script>
+    const FIRST_GATE_URL = "/dreamfire-gate/soulwalk/first-gate.html";
+    const LIVING_LIBRARY_URL = "/dreamfire-gate/living-library.html";
+
+    if (!localStorage.getItem("dreamfireUserStarted")) {
+      localStorage.setItem("dreamfireUserStarted", "true");
+      window.location.href = FIRST_GATE_URL;
+    } else {
+      window.location.href = LIVING_LIBRARY_URL;
+    }
+  </script>
+</body>
+</html>
