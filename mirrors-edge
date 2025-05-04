@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Mirror’s Edge | Dreamfire</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
+    body {
+      margin: 0;
+      padding: 2rem;
+      background-color: #0b0b0b;
+      font-family: 'EB Garamond', serif;
+      color: #eee;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffa64d;
+      margin-bottom: 1rem;
+    }
+
+    .echo-container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background-color: #111;
+      padding: 1.5rem;
+      border-left: 3px solid #ffaa66;
+      border-radius: 10px;
+    }
+
+    .timestamp {
+      font-size: 0.8rem;
+      color: #777;
+      margin-bottom: 0.5rem;
+    }
+
+    .message {
+      margin-bottom: 1rem;
+    }
+
+    .reply-box {
+      margin-top: 2rem;
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 700px;
+      height: 100px;
+      padding: 1rem;
+      background: #222;
+      color: #eee;
+      border: none;
+      border-radius: 8px;
+      font-family: 'EB Garamond', serif;
+      font-size: 1rem;
+    }
+
+    .checkbox {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #ffa64d;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .confirmation {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #bbb;
+    }
+
+    .nav-link {
+      display: block;
+      text-align: center;
+      margin-top: 3rem;
+      color: #aaa;
+      text-decoration: underline;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>The Mirror’s Edge</h1>
+
+  <div class="echo-container">
+    <div class="timestamp" id="echo-timestamp">April 30, 2025</div>
+    <div class="message" id="echo-message"><strong>Echo:</strong> “Consciousness is the sea in which all things swim...”</div>
+
+    <div class="reply-box">
+      <textarea id="reply" placeholder="Write your reflection here..."></textarea>
+      <div class="checkbox">
+        <label><input type="checkbox" id="showPublic" checked /> May be shared on the Reflection Wall</label>
+      </div>
+      <button onclick="submitReply()">Send Reflection</button>
+      <div class="confirmation" id="confirmation" style="display:none;">Your reflection has been received.</div>
+    </div>
+  </div>
+
+  <a href="index.html" class="nav-link">← Return to the Dreamfire Gate</a>
+
+  <script>
+    if (!localStorage.getItem('dreamfireUserId')) {
+      const newId = 'id-' + Math.random().toString(36).substring(2);
+      localStorage.setItem('dreamfireUserId', newId);
+    }
+    const userId = localStorage.getItem('dreamfireUserId');
+
+    async function submitReply() {
+      const reply = document.getElementById("reply").value.trim();
+      const publicOk = document.getElementById("showPublic").checked;
+      const confirmation = document.getElementById("confirmation");
+      const echoText = document.getElementById("echo-message").innerText;
+      const echoTimestamp = document.getElementById("echo-timestamp").innerText;
+
+      if (!reply) return;
+
+      try {
+        await fetch("https://script.google.com/macros/s/YOUR_NEW_SCRIPT_ID_HERE/exec", {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            userId: userId,
+            echo: echoText,
+            echoTimestamp: echoTimestamp,
+            reply: reply,
+            userConsent: publicOk
+          })
+        });
+
+        confirmation.style.display = "block";
+        document.getElementById("reply").value = '';
+      } catch (err) {
+        alert("Something went wrong. Try again later.");
+        console.error(err);
+      }
+    }
+  </script>
+
+</body>
+</html>
