@@ -58,41 +58,52 @@
     .back-link:hover {
       color: #fff;
     }
+
+    .loading {
+      text-align: center;
+      margin-top: 2rem;
+      font-style: italic;
+      color: #888;
+    }
   </style>
 </head>
 <body>
   <h1>The Mirror's Reflections</h1>
-  <div id="reflections"></div>
+  <div id="reflections" class="loading">Gathering the reflections...</div>
+
   <a href="mirrors-edge.html" class="back-link">← Return to The Mirror's Edge</a>
 
   <script>
     async function loadReflections() {
       const container = document.getElementById("reflections");
-      container.innerHTML = "<p><em>Gathering the reflections...</em></p>";
 
       try {
         const res = await fetch("https://script.google.com/macros/s/AKfycbw4GPO34mDO6ttOXnOxx2umh9uXg2Bzd0vq0SsszTIKxrdi9PCoABBi-FLKBwck2DcQWw/exec");
         const data = await res.json();
 
-        if (data.length === 0) {
-          container.innerHTML = "<p><em>No reflections are visible yet.</em></p>";
+        if (!data || data.length === 0) {
+          container.innerHTML = "<p class='loading'><em>No reflections are visible yet.</em></p>";
           return;
         }
 
         container.innerHTML = "";
         data.reverse().forEach(entry => {
+          const timestamp = entry.submittedAt || "Unknown date";
+          const echo = entry.echo || "No echo message found.";
+          const reply = entry.reply || "No reflection shared.";
+
           const div = document.createElement("div");
           div.className = "reflection";
           div.innerHTML = `
-            <div class="timestamp">${entry.submittedAt}</div>
-            <div class="echo">Echo: ${entry.echo}</div>
-            <div class="reply">Reply: ${entry.reply}</div>
+            <div class="timestamp">${timestamp}</div>
+            <div class="echo">Echo: ${echo}</div>
+            <div class="reply">“${reply}”</div>
           `;
           container.appendChild(div);
         });
       } catch (err) {
         console.error(err);
-        container.innerHTML = "<p><em>Could not load reflections.</em></p>";
+        container.innerHTML = "<p class='loading'><em>Could not load reflections.</em></p>";
       }
     }
 
