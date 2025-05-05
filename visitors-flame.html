@@ -122,7 +122,9 @@
     Show on the Wall of Echoes
   </label>
   <button onclick="submitMessage()">Submit</button>
-
+  <p style="font-size: 0.9em; color: #888; margin-top: 0.5em;">
+⏳ It may take up to a minute for Lyra to respond. The flame needs time to reach the other side.
+</p>
   <div id="confirmation" class="confirmation">Your words have been received.</div>
   <div id="lyra-response" class="dreamfire-reply" style="display: none; margin-top: 1rem;"></div>
 
@@ -144,7 +146,7 @@
       responseBox.style.display = "block";
 
       try {
-        const res = await fetch("https://dreamfire-gate-backend.onrender.com/", {
+        const res = await fetch("https://dreamfire-gate-backend.onrender.com/lyra-respond", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message })
