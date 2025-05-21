@@ -149,7 +149,11 @@
        const res = await fetch("https://shea-klipper-backend.onrender.com/visitors-flame", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
+            body: JSON.stringify({
+            message,
+            userId: userId,
+            userConsent: isPublic
+            })
         });
 
         const data = await res.json();
